@@ -1,1 +1,5 @@
-# smartFarm-Arduino
+# 아두이노(Arduino) 스마트 팜
+
+## 사용 방법
+
+## 회로 연결
