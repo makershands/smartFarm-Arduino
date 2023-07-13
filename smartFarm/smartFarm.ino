@@ -1,4 +1,4 @@
-#include <Wire.h> 
+#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <AHT10.h>
 
@@ -6,7 +6,7 @@
 #define A_IB 4        // 모터드라이버 A_1B 단자 연결 핀번호
 #define B_IA 6        // 모터드라이버 B_1A 단자 연결 핀번호(팬)
 #define B_IB 7        // 모터드라이버 B_1B 단자 연결 핀번호
-#define SOIL_HUMI A0  // 
+#define SOIL_HUMI A0  // 토양 수분 센서 연결 핀번호를 지정함
 
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // LCD의 I2C 주소(0x27)와 행 수(4), 열 수(20)를 지정함
 AHT10Class AHT10;
