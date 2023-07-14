@@ -1,3 +1,9 @@
+/*
+ * 
+ * 
+ * 
+ */
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <AHT10.h>
@@ -14,7 +20,7 @@ AHT10Class AHT10;
 int cds_pin = A1;         // 조도센서에 사용할 핀번호
 int cds_ledpin = 13;      // LED에 사용할 핀번호
 int soil, psoil;          // 수분센서 값을 사용하기 위한 변수 선언
-int val, cdsval, pcdsval; // 조도센서 값을 사용하기 위한 변수 선언
+int val, cdsval; // 조도센서 값을 사용하기 위한 변수 선언
 float temp, humi = 0;     //
 
 int waterpumpPower = 150; //
@@ -60,8 +66,7 @@ void loop() {
   soil = analogRead(SOIL_HUMI);       // A0에서 읽은 값을 soil 변수에 저장
   psoil = map(soil, 1023, 0, 0, 100); // map함수를 사용하여 soil값을 1~100으로 변환한 값을 psoil에 저장
   val = analogRead(cds_pin);          // A1에서 읽은 값을 val 변수에 저장
-  cdsval = map(val,0, 1023, 250, 0);  // map함수를 사용하여 val값을 1~250으로 변환한 값을 cdsval에 저장
-  pcdsval = cdsval*0.4;               // 조도센서값을 0~100으로 표시하기 위한 설정
+  cdsval = map(val, 0, 1023, 100, 0);  // map함수를 사용하여 val값을 0~100으로 변환한 값을 cdsval에 저장
   
   lcd.init(); // LCD 초기화 init() 명령이 안먹으면 begin으로 수정
   lcd.clear(); // 이전에 출력한 값 지우기 
@@ -71,7 +76,7 @@ void loop() {
   /* LCD의 커서를 1행 1열에 놓고 "M: {토양 수분 센서 값}%"와 같이 출력 */
   lcd.setCursor(0, 0); lcd.print("M: "); lcd.print(psoil); lcd.print("%");
   /* LCD의 커서를 1행 10열에 놓고 "L: {조도 센서 값}%"와 같이 출력 */
-  lcd.setCursor(9, 0); lcd.print("L: "); lcd.print(pcdsval); lcd.print("%");
+  lcd.setCursor(9, 0); lcd.print("L: "); lcd.print(cdsval); lcd.print("%");
   /* LCD의 커서를 2행 1열에 놓고 "T: {온도 센서 값}C"와 같이 출력 */
   lcd.setCursor(0, 1); lcd.print("T: "); lcd.print(temp, 1); lcd.print("C");
   /* LCD의 커서를 2행 10열에 놓고 "H: {습도 센서 값}%"와 같이 출력 */
@@ -102,6 +107,6 @@ void loop() {
     digitalWrite(B_IB, LOW);
   }
 
-  if (pcdsval < 70) digitalWrite(cds_ledpin, HIGH); // 
+  if (cdsval < 70) digitalWrite(cds_ledpin, HIGH); // 
   else digitalWrite(cds_ledpin, LOW);               // 
 }
