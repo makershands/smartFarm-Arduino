@@ -1,9 +1,3 @@
-/*
- * 
- * 
- * 
- */
-
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <AHT10.h>
@@ -14,8 +8,8 @@
 #define B_IB 7       // 모터드라이버 B_1B 단자 연결 핀번호
 #define SOIL_HUMI A0 // 토양 수분 센서 연결 핀번호를 지정함
 
-LiquidCrystal_I2C lcd(0x27, 20, 4); // LCD의 I2C 주소(0x27)와 행 수(4), 열 수(20)를 지정함
-AHT10Class AHT10;                   // 
+LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD의 I2C 주소(0x27)와 행 수(4), 열 수(20)를 지정함
+AHT10Class AHT10;                   // AHT10 클래스를 선언함
 
 int cds_pin = A1;         // 조도 센서에 사용할 핀 번호 지정
 int led_pin = 13;         // LED에 사용할 핀 번호 지정
@@ -32,9 +26,9 @@ void setup() {
   if(AHT10.begin(eAHT10Address_Low)) Serial.println("Init AHT10 Success."); // 
   else                               Serial.println("Init AHT10 Failure."); // 
 
-  /* LCD 초기 설정, 오프닝 이벤트 */
-  lcd.init();
-  lcd.backlight();
+  /* LCD 초기 설정 */
+  lcd.init();      // LCD를 초기화함
+  lcd.backlight(); // LCD의 백라이트를 켬
   /* 1행과 2행에 각각 메시지를 출력함 */
   lcd.setCursor(0,0); lcd.print("Hello,SmartFarm!");
   lcd.setCursor(0,1); lcd.print("Made by M2Hands!");
@@ -71,8 +65,8 @@ void loop() {
   pcdsval = cdsval*0.4;               // 조도센서값을 0~100으로 표시하기 위한 설정
   
   lcd.init();      // LCD 초기화 init() 명령이 안먹으면 begin으로 수정
-  lcd.clear();     // 이전에 출력한 값 지우기 
-  lcd.backlight(); // 배경화면 빛이 들어오도록 설정 
+  lcd.clear();     // 이전에 출력한 값 지우기
+  lcd.backlight(); // 배경화면 빛이 들어오도록 설정
   lcd.display();   // 내용을 표시
 
   /* LCD의 커서를 1행 1열에 놓고 "M: {토양 수분 센서 값}%"와 같이 출력 */
@@ -93,17 +87,17 @@ void loop() {
 
   /* 토양 수분 센서 값이 30% 미만일 때 실행 */
   if(psoil < 30) {
-    analogWrite(A_IA, waterpumpPower);  // 값을 변화시키면서 호스에서 나오는 물의 양을 적정하게 설정
+    analogWrite(A_IA, waterpumpPower);
     digitalWrite(A_IB, LOW);    
-  } else {  // 그 외 토양수분값이 측정되면 워터모터를 끄라
+  } else {
     digitalWrite(A_IA, LOW);
     digitalWrite(A_IB, LOW);
   }
 
   /* 온도 센서 값이 20도C 이상이거나 습도 센서 값이 60% 이상일 때 실행 */
   if(temp >= 20 || humi >= 60) {
-    analogWrite(B_IA, fanPower);  // 값을 변화시키면서 팬의 세기를 설정(0~255)
-    digitalWrite(B_IB, LOW);      // 
+    analogWrite(B_IA, fanPower); // 값을 변화시키면서 팬의 세기를 설정(0~255)
+    digitalWrite(B_IB, LOW);
   } else { /*  */
     digitalWrite(B_IA, LOW);
     digitalWrite(B_IB, LOW);
