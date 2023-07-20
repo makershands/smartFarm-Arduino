@@ -8,7 +8,7 @@
 #define B_IB 7       // 모터드라이버 B_1B 단자 연결 핀번호
 #define SOIL_HUMI A0 // 토양 수분 센서 연결 핀번호를 지정함
 
-LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD의 I2C 주소(0x27)와 행 수(4), 열 수(20)를 지정함
+LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD의 I2C 주소(0x27)와 행 수(2), 열 수(16)를 지정함
 AHT10Class AHT10;                   // AHT10 클래스를 선언함
 
 int cds_pin = A1;         // 조도 센서에 사용할 핀 번호 지정
