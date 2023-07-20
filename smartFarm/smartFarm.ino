@@ -2,15 +2,15 @@
 #include <LiquidCrystal_I2C.h>
 #include <AHT10.h>
 
-#define A_IA 4       // 모터드라이버 A_1A 단자 연결 핀번호(워터펌프)
-#define A_IB 5       // 모터드라이버 A_1B 단자 연결 핀번호
-#define B_IA 6       // 모터드라이버 B_1A 단자 연결 핀번호(팬)
-#define B_IB 7       // 모터드라이버 B_1B 단자 연결 핀번호
-#define SOIL_HUMI A0 // 토양 수분 센서 연결 핀번호를 지정함
+#define B_IB 4       // 모터드라이버 A_1B 단자 연결 핀번호(워터펌프)
+#define B_IA 5       // 모터드라이버 A_1A 단자 연결 핀번호
+#define A_IA 6       // 모터드라이버 B_1A 단자 연결 핀번호(팬)
+#define A_IB 7       // 모터드라이버 B_1B 단자 연결 핀번호
 
 LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD의 I2C 주소(0x27)와 행 수(2), 열 수(16)를 지정함
 AHT10Class AHT10;                   // AHT10 클래스를 선언함
 
+int SOIL_HUMI = A0;       // 토양 수분 센서 연결 핀번호를 지정함
 int cds_pin = A1;         // 조도 센서에 사용할 핀 번호 지정
 int led_pin = 13;         // LED에 사용할 핀 번호 지정
 int soil, psoil;          // 수분 센서 값을 저장하기 위한 변수 선언
@@ -87,20 +87,20 @@ void loop() {
 
   /* 토양 수분 센서 값이 30% 미만일 때 실행 */
   if(psoil < 30) {
-    analogWrite(A_IA, waterpumpPower);
-    digitalWrite(A_IB, LOW);    
+    analogWrite(B_IA, waterpumpPower);
+    digitalWrite(B_IB, LOW);    
   } else {
-    digitalWrite(A_IA, LOW);
-    digitalWrite(A_IB, LOW);
+    digitalWrite(B_IA, LOW);
+    digitalWrite(B_IB, LOW);
   }
 
   /* 온도 센서 값이 20도C 이상이거나 습도 센서 값이 60% 이상일 때 실행 */
-  if(temp >= 20 || humi >= 60) {
-    analogWrite(B_IA, fanPower); // 값을 변화시키면서 팬의 세기를 설정(0~255)
-    digitalWrite(B_IB, LOW);
+  if(temp >= 24 || humi >= 60) {
+    analogWrite(A_IA, fanPower); // 값을 변화시키면서 팬의 세기를 설정(0~255)
+    digitalWrite(A_IB, LOW);
   } else { /*  */
-    digitalWrite(B_IA, LOW);
-    digitalWrite(B_IB, LOW);
+    digitalWrite(A_IA, LOW);
+    digitalWrite(A_IB, LOW);
   }
 
   if (pcdsval < 70) digitalWrite(led_pin, HIGH); // 조도 센서 값이 70% 미만이면 LED를 켬
