@@ -1,3 +1,25 @@
+/*
+    Arduino Uno Smart Farm
+
+    The circuit:
+    * Arduino Uno A0 ─ soil moisture sensor module
+    * Arduino Uno A1 ─ CdS photo resistor module
+    * Arduino Uno A4(SDA) ─ LCD SDA and AHT10 temp·humi sensor module SDA
+    * Arduino Uno A5(SCL) ─ LCD SCL and AHT10 temp·humi sensor module SCL
+    * Arduino Uno 13 ─ plant LED bar
+    * Arduino Uno 4 ─ 2ch motor driver B-IB
+    * Arduino Uno 5 ─ 2ch motor driver B-IA
+    * Arduino Uno 6 ─ 2ch motor driver A-IA
+    * Arduino Uno 7 ─ 2ch motor driver A-IB
+    * 2ch motor driver Motor A(+) ─ cooling fan (+)
+    * 2ch motor driver Motor A(-) ─ cooling fan (-)
+    * 2ch motor driver Motor B(+) ─ water pump motor (+)
+    * 2ch motor driver Motor B(-) ─ water pump motor (-)
+
+    https://github.com/makershands/smartFarm-Arduino
+
+*/
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <AHT10.h>
