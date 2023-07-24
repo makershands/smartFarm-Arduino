@@ -45,8 +45,8 @@ int fanPower = 150;       // 쿨링 팬의 기준값 지정
 void setup() {
   /* AHT10 초기 설정 */
   Wire.begin();                                                             // I2C 통신을 시작함
-  if(AHT10.begin(eAHT10Address_Low)) Serial.println("Init AHT10 Success."); // 
-  else                               Serial.println("Init AHT10 Failure."); // 
+  if(AHT10.begin(eAHT10Address_Low)) Serial.println("Init AHT10 Success."); // I2C 통신이 시작되면 메시지를 출력함
+  else                               Serial.println("Init AHT10 Failure."); // I2C 통신에 실패하면 메시지를 출력함
 
   /* LCD 초기 설정 */
   lcd.init();      // LCD를 초기화함
