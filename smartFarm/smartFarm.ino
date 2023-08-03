@@ -81,7 +81,7 @@ void loop() {
   humi = AHT10.GetHumidity();
 
   soil = analogRead(SOIL_HUMI);       // A0에서 읽은 값을 soil 변수에 저장
-  psoil = map(soil, 1023, 0, 0, 100); // map함수를 사용하여 soil값을 1~100으로 변환한 값을 psoil에 저장
+  psoil = map(soil, 1023, 0, 100, 0); // map함수를 사용하여 soil값을 1~100으로 변환한 값을 psoil에 저장
   val = analogRead(cds_pin);          // A1에서 읽은 값을 val 변수에 저장
   cdsval = map(val,0, 1023, 250, 0);  // map함수를 사용하여 val값을 1~250으로 변환한 값을 cdsval에 저장
   pcdsval = cdsval*0.4;               // 조도센서값을 0~100으로 표시하기 위한 설정
